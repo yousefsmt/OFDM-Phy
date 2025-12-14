@@ -1,0 +1,12 @@
+.vscode/
+build/
+*.log
+.alcache/
+.alpackages/
+.snapshots/
+.output/
+*.app
+rad.json
+*g.xlf
+*.flf
+*.xml

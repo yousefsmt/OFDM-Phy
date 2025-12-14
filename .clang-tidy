@@ -1,0 +1,211 @@
+Checks: >-
+  -*,
+
+  # ============================================================
+  # 1. BUGPRONE (only checks relevant for C)
+  # ============================================================
+  bugprone-argument-comment,
+  bugprone-assert-side-effect,
+  bugprone-bool-pointer-implicit-conversion,
+  bugprone-inaccurate-erase,
+  bugprone-incorrect-roundings,
+  bugprone-integer-division,
+  bugprone-macro-parentheses,
+  bugprone-macro-repeated-side-effects,
+  bugprone-misplaced-operator-in-strlen-in-alloc,
+  bugprone-misplaced-widening-cast,
+  bugprone-multiple-statement-macro,
+  bugprone-redundant-branch-condition,
+  bugprone-reserved-identifier,
+  bugprone-sizeof-expression,
+  bugprone-suspicious-enum-usage,
+  bugprone-suspicious-memset-usage,
+  bugprone-suspicious-missing-comma,
+  bugprone-suspicious-semicolon,
+  bugprone-suspicious-string-compare,
+  bugprone-swapped-arguments,
+  bugprone-terminating-continue,
+  bugprone-too-small-loop-variable,
+  bugprone-undefined-memory-manipulation,
+  bugprone-unused-return-value,
+  bugprone-string-literal-with-embedded-nul,
+
+  # ============================================================
+  # 2. CLANG STATIC ANALYZER (C-compatible subsets)
+  # ============================================================
+  clang-analyzer-core.*,
+  clang-analyzer-security.*,
+  clang-analyzer-optin.portability.UnixAPI,
+
+  # ============================================================
+  # 3. CERT C RULES
+  # ============================================================
+  cert-env33-c,
+  cert-flp30-c,
+  cert-str34-c,
+
+  # ============================================================
+  # 4. GOOGLE C STYLE (only checks that apply to C)
+  # ============================================================
+  google-runtime-int,
+  google-readability-braces-around-statements,
+
+  # ============================================================
+  # 5. LLVM GENERAL CHECKS
+  # ============================================================
+  llvm-else-after-return,
+
+  # ============================================================
+  # 6. READABILITY CHECKS (C-compatible)
+  # ============================================================
+  readability-braces-around-statements,
+  readability-container-size-empty,
+  readability-isolate-declaration,
+  readability-named-parameter,
+  readability-non-const-parameter,
+  readability-redundant-control-flow,
+  readability-string-compare,
+  readability-identifier-naming,
+
+  # ============================================================
+  # 7. PERFORMANCE CHECKS THAT APPLY TO C
+  # ============================================================
+  performance-inefficient-algorithm,
+  performance-inefficient-string-concatenation,
+  performance-move-const-arg,
+  performance-type-promotion-in-math-fn,
+  performance-unnecessary-copy-initialization,
+  performance-unnecessary-value-param,
+
+  # ============================================================
+  # 8. MISC CHECKS (filtered for pure C)
+  # ============================================================
+  misc-misplaced-const,
+  misc-redundant-expression,
+  misc-static-assert,
+  misc-unused-using-decls
+  # (kept general misc-* except C++-only ones)
+  misc-*,
+  -misc-const-correctness,
+  -misc-unused-parameters,
+  -misc-include-cleaner
+
+WarningsAsErrors: ''
+
+HeaderFilterRegex: ''
+
+FormatStyle: file
+
+CheckOptions:
+  - key: performance-unnecessary-copy-initialization.ExcludedContainerTypes
+    value: ''
+
+  - key: bugprone-reserved-identifier.Invert
+    value: 'false'
+
+  - key: bugprone-unused-return-value.CheckedFunctions
+    value: >-
+      ::bsearch;
+      ::ferror;
+      ::feof;
+      ::isalnum;
+      ::isalpha;
+      ::isblank;
+      ::iscntrl;
+      ::isdigit;
+      ::isgraph;
+      ::islower;
+      ::isprint;
+      ::ispunct;
+      ::isspace;
+      ::isupper;
+      ::iswalnum;
+      ::iswprint;
+      ::iswspace;
+      ::isxdigit;
+      ::memchr;
+      ::memcmp;
+      ::strcmp;
+      ::strncmp;
+      ::strstr;
+      ::strrchr;
+      ::strspn;
+      ::wcscmp;
+      ::access;
+      ::bind;
+      ::connect;
+      ::difftime;
+      ::dlsym;
+      ::fnmatch;
+      ::getaddrinfo;
+      ::getopt;
+      ::htonl;
+      ::htons;
+      ::inet_addr;
+      ::isatty;
+      ::mmap;
+      ::openat;
+      ::pathconf;
+      ::pthread_equal;
+      ::pthread_getspecific;
+      ::pthread_mutex_trylock;
+      ::readdir;
+      ::readlink;
+      ::recvmsg;
+      ::regexec;
+      ::scandir;
+      ::semget;
+      ::setjmp;
+      ::shm_open;
+      ::shmget;
+      ::sigismember;
+      ::strcasecmp;
+      ::strsignal;
+      ::ttyname
+
+  - key: readability-identifier-naming.GetConfigPerFile
+    value: 'true'
+
+  - key: readability-inconsistent-declaration-parameter-name.Strict
+    value: 'false'
+
+  - key: readability-identifier-naming.AggressiveDependentMemberLookup
+    value: 'false'
+
+  - key: bugprone-suspicious-string-compare.WarnOnImplicitComparison
+    value: 'true'
+
+  - key: bugprone-argument-comment.CommentNullPtrs
+    value: '0'
+
+  - key: bugprone-argument-comment.StrictMode
+    value: '0'
+
+  - key: google-readability-namespace-comments.ShortNamespaceLines
+    value: '10'
+
+  - key: bugprone-suspicious-missing-comma.SizeThreshold
+    value: '5'
+
+  - key: google-runtime-int.SignedTypePrefix
+    value: int
+
+  - key: llvm-else-after-return.WarnOnUnfixable
+    value: 'false'
+
+  - key: bugprone-sizeof-expression.WarnOnSizeOfCompareToConstant
+    value: 'true'
+
+  # ID Naming rules (C style)
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.MemberCase
+    value: lower_case
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE

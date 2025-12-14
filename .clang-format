@@ -1,0 +1,80 @@
+# ------------------------------------------------------------
+# Base style and indentation
+# ------------------------------------------------------------
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+# ------------------------------------------------------------
+# Braces — Allman style (clean and common for embedded/system C)
+# ------------------------------------------------------------
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterStruct: true
+  AfterUnion: true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+
+# ------------------------------------------------------------
+# Alignment options: keep C code visually consistent
+# ------------------------------------------------------------
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignOperands: true
+AlignTrailingComments: true
+
+# ------------------------------------------------------------
+# Compact constructs (reasonable defaults for C)
+# ------------------------------------------------------------
+AllowAllArgumentsOnNextLine: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: false
+
+# ------------------------------------------------------------
+# Pointer, cast, spacing rules
+# ------------------------------------------------------------
+PointerAlignment: Left
+DerivePointerAlignment: false
+SpaceAfterCStyleCast: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# ------------------------------------------------------------
+# Include ordering
+# ------------------------------------------------------------
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '^<.*>'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+SortUsingDeclarations: false   # C has no using declarations
+
+# ------------------------------------------------------------
+# Preprocessor and indentation
+# ------------------------------------------------------------
+IndentCaseLabels: true
+IndentPPDirectives: AfterHash
+
+# ------------------------------------------------------------
+# Comments
+# ------------------------------------------------------------
+ReflowComments: true
+CommentPragmas: '^ IWYU pragma:'
