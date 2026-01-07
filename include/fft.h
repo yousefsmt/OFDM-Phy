@@ -18,5 +18,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+#include <assert.h>
+#include <fftw3.h>
+#include <complex.h>
+#include <string.h>
+
+#define NORM_FACTOR(size) (1/sqrt((double)(size)))
+#define FFT_SIZE 128
+
+typedef struct
+{
+    size_t        fft_size;
+    fftw_complex* input;
+    fftw_complex* output;
+    fftw_plan     fft_plan_complex;
+}fft_config;
+
+int init_fft(fft_config* config);
+int run_fft(fft_config* config, double complex* input_array, double complex* output_array);
+int close_fft(fft_config* config);
 
 #endif // !PHY_SOURCE_FFT_H_
