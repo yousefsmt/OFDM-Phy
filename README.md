@@ -27,28 +27,28 @@ This project aims to bridge that gap by offering a **clean, educational, yet pro
 ### Discrete-Time OFDM Signal
 
 Let  
-- \( N \) be the number of subcarriers  
-- \( X[k] \) be the complex QAM symbol mapped to the \(k\)-th subcarrier  
+- $N$ be the number of subcarriers  
+- $X[k]$ be the complex QAM symbol mapped to the $k$-th subcarrier  
 
 The discrete-time OFDM symbol is generated using the IFFT:
 
-\[
+```math
 x[n] = \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} X[k] e^{j \frac{2\pi}{N} kn}, \quad n = 0,1,\dots,N-1
-\]
+```
 
 ---
 
 ### Cyclic Prefix (CP)
 
-To mitigate inter-symbol interference (ISI) caused by multipath channels, a cyclic prefix of length \(N_{cp}\) is prepended:
+To mitigate inter-symbol interference (ISI) caused by multipath channels, a cyclic prefix of length $N_{cp}$ is prepended:
 
-\[
+```math
 x_{cp}[n] =
 \begin{cases}
 x[n + N], & -N_{cp} \le n < 0 \\
 x[n], & 0 \le n < N
 \end{cases}
-\]
+```
 
 ---
 
@@ -56,19 +56,19 @@ x[n], & 0 \le n < N
 
 The received signal is modeled as:
 
-\[
+```math
 y[n] = (x_{cp}[n] * h[n]) + w[n]
-\]
+```
 
 where:
-- \( h[n] \) is the discrete-time channel impulse response  
-- \( w[n] \sim \mathcal{CN}(0, \sigma^2) \) is complex AWGN  
+- $h[n]$ is the discrete-time channel impulse response  
+- $w[n] \sim \mathcal{CN}(0, \sigma^2)$ is complex AWGN  
 
 After CP removal and FFT:
 
-\[
+```math
 Y[k] = H[k] X[k] + W[k]
-\]
+```
 
 ---
 
@@ -76,18 +76,18 @@ Y[k] = H[k] X[k] + W[k]
 
 #### Zero-Forcing (ZF)
 
-\[
+```math
 \hat{X}_{ZF}[k] = \frac{Y[k]}{H[k]}
-\]
+```
 
 #### MMSE
 
-\[
+```math
 \hat{X}_{MMSE}[k] =
 \frac{H^*[k]}{|H[k]|^2 + \frac{\sigma^2}{E_s}} Y[k]
-\]
+```
 
-where \(E_s\) is the average symbol energy.
+where $E_s$ is the average symbol energy.
 
 ---
 
@@ -101,9 +101,9 @@ Supported modulation schemes:
 Each constellation uses:
 - Gray coding  
 - Average power normalization:
-\[
+```math
 E[|X[k]|^2] = 1
-\]
+```
 
 ---
 
@@ -135,16 +135,16 @@ E[|X[k]|^2] = 1
 
 ### Bit Error Rate (BER)
 
-\[
+```math
 \text{BER} = \frac{N_{error}}{N_{total}}
-\]
+```
 
 ### Error Vector Magnitude (EVM)
 
-\[
+```math
 \text{EVM}_{rms} =
 \sqrt{\frac{E[|X - \hat{X}|^2]}{E[|X|^2]}}
-\]
+```
 
 ---
 
