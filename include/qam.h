@@ -20,6 +20,34 @@
 
 #include <stdint.h>
 
+#define QAM_ORDER 16
+
+#if QAM_ORDER == 16
+
+/* 16-QAM square constellation amplitude levels for I/Q components*/
+static const double amp_16qam[4UL] = {-3.00, -1.00, 1.00, 3.00};
+
+/*Number of bits per symbol*/
+#define BITS_PER_SYM 4
+
+#elif QAM_ORDER == 64
+
+/* 64-QAM square constellation amplitude levels for I/Q components*/
+static const double amp_64qam[6UL] = {-5.00, -3.00, -1.00, 1.00, 3.00, 5.00};
+
+/*Number of bits per symbol*/
+#define BITS_PER_SYM 6
+
+#elif QAM_ORDER == 256  
+
+/* 256-QAM square constellation amplitude levels for I/Q components*/
+static const double amp_256qam[8UL] = {-7.00, -5.00, -3.00, -1.00, 1.00, 3.00, 5.00, 7.00};
+
+/*Number of bits per symbol*/
+#define BITS_PER_SYM 8
+
+#endif // ORDER
+
 /*Calculate logarithm with base 2 from unsigned integer*/
 #define LOG2_UINT(x) (uint8_t) log2((double) (x))
 
@@ -36,13 +64,16 @@
 // #define GRAY_CODE(x) x ^ (x >> 1)
 
 /*Modulation order*/
-#define M 16
+// #define M 16
 
 /*Number of bits per symbol*/
-#define BITS_PER_SYM LOG2_UINT(M)
+// #define BITS_PER_SYM LOG2_UINT(M)
 
 /*Number of symbol per second*/
-#define SYMBOL_RATE 1000
+#define SYMBOL_RATE 2000000
+
+/*Number of seconds on transmission*/
+#define SECONDS 1
 
 /*Number of sample per second*/
 // #define FS 100000
