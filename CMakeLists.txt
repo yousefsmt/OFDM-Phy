@@ -21,6 +21,7 @@ add_compile_options(
     -fstack-protector-strong
     -fPIE
     -fPIC
+    -O2
 )
 
 # =========================
@@ -35,6 +36,11 @@ pkg_check_modules(FFTW3 REQUIRED fftw3)
 file(GLOB SRC_FILES
     src/*.c
 )
+
+# =========================
+# Copy .bin file (input signal)
+# =========================
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test/data_1M.bin DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
 
 # =========================
 # Main executable

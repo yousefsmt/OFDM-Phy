@@ -57,6 +57,10 @@ static const double amp_256qam[8UL] = {-7.00, -5.00, -3.00, -1.00, 1.00, 3.00, 5
 /*Calculate 4-bit least significant bit from 8-bit number*/
 #define LSB_4(x) ((x) & 15U)
 
+/* Scaling factor to normalize the QAM symbol set to unit average energy */
+#define COEFF (2.0*(QAM_ORDER-1.0))
+#define NORM_SYMBOL(x) (1.0 / sqrt(COEFF / 3.0))*x
+
 /*Calculate i-q coordinate from input*/
 #define AMP_CALC(x, order) (((x) * 2) + 1 - (order))
 

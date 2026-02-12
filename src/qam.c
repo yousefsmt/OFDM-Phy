@@ -22,16 +22,16 @@ int map_bits_to_complex(const uint8_t* bits, complex_t* symbols)
                         msb_four_bit ^= msb_four_bit >> 1;
                         lsb_four_bit = MSB_4(bits[i]) & 3u;
                         lsb_four_bit ^= lsb_four_bit >> 1;
-                        symbols[2 * i].i = amp_16qam[msb_four_bit];
-                        symbols[2 * i].q = -amp_16qam[lsb_four_bit];
+                        symbols[i << 1].i =  NORM_SYMBOL(amp_16qam[msb_four_bit]);
+                        symbols[i << 1].q = -NORM_SYMBOL(amp_16qam[lsb_four_bit]);
                         break; 
                     case 1:
                         msb_four_bit = LSB_4(bits[i]) >> 2u;
                         msb_four_bit ^= msb_four_bit >> 1;
                         lsb_four_bit = LSB_4(bits[i]) & 3u;
                         lsb_four_bit ^= lsb_four_bit >> 1;
-                        symbols[2 * i + 1].i = amp_16qam[msb_four_bit];
-                        symbols[2 * i + 1].q = -amp_16qam[lsb_four_bit];
+                        symbols[(i << 1) + 1].i =  NORM_SYMBOL(amp_16qam[msb_four_bit]);
+                        symbols[(i << 1) + 1].q = -NORM_SYMBOL(amp_16qam[lsb_four_bit]);
                         break;
                     default:
                         break;

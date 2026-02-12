@@ -4,6 +4,8 @@
 
 #include "qam.h"
 
+typedef struct timeval timeval;
+
 #define NUMBER_OF_DATA 1000000
 
 int open_bin_file(uint8_t* buffer, uint64_t num_data)
@@ -42,40 +44,57 @@ int open_bin_file(uint8_t* buffer, uint64_t num_data)
 int main()
 {
     int        is_correct = 0;
-    uint8_t*   input      = malloc(sizeof(uint8_t) * NUMBER_OF_DATA);
-    complex_t* output     = malloc(sizeof(complex_t) * SYMBOL_RATE);
+    uint8_t*   input      = (uint8_t*)malloc(sizeof(uint8_t) * NUMBER_OF_DATA);
+    complex_t* output     = (complex_t*)malloc(sizeof(complex_t) * SYMBOL_RATE);
 
 
-    struct timeval start = {.tv_sec = 0, .tv_usec = 0};
-    struct timeval stop = {.tv_sec = 0, .tv_usec = 0};
+    timeval start = {.tv_sec = 0, .tv_usec = 0};
+    timeval stop  = {.tv_sec = 0, .tv_usec = 0};
     
 
-    is_correct = open_bin_file(input, NUMBER_OF_DATA);
-    printf("OPEN FILE: %d\n", is_correct);
+    if (input && output)
+    {
+        is_correct = open_bin_file(input, NUMBER_OF_DATA);
+        if (is_correct == -1)
+        {
+            fprintf(stderr, "open file error\n");
+            return -1;
+        }
 
-    printf("\n\n***** Verify Read Corrected *****\n");
-    printf("input[0]: %d\n", input[0]);
-    printf("input[1]: %d\n", input[1]);
-    printf("input[999998]: %d\n", input[NUMBER_OF_DATA-2]);
-    printf("input[999999]: %d\n", input[NUMBER_OF_DATA-1]);
-    printf("************************************\n\n");
+        printf("\n\n***** Verify Read Corrected *****\n");
+        printf("input[0]: %d\n", input[0]);
+        printf("input[1]: %d\n", input[1]);
+        printf("input[999998]: %d\n", input[NUMBER_OF_DATA-2]);
+        printf("input[999999]: %d\n", input[NUMBER_OF_DATA-1]);
+        printf("************************************\n\n");
 
-    gettimeofday(&start, NULL);
-    is_correct = map_bits_to_complex(input, output);
-    gettimeofday(&stop, NULL);
-    double time_elapsed = (stop.tv_sec - start.tv_sec)*1000000.0 + (stop.tv_usec - start.tv_usec);
-    printf("Modulation Runtime: %f\n", time_elapsed);
-    printf("MODULATION: %d\n", is_correct);
+        gettimeofday(&start, NULL);
+        is_correct = map_bits_to_complex(input, output);
+        if (is_correct == -1)
+        {
+            fprintf(stderr, "modulation error\n");
+            return -1;
+        }
+        gettimeofday(&stop, NULL);
+        double time_elapsed = (stop.tv_sec - start.tv_sec)*1000000.0 + (stop.tv_usec - start.tv_usec);
+        printf("Modulation Runtime: %f\n", time_elapsed);
+        printf("MODULATION: %d\n", is_correct);
 
-    printf("\n\n***** Verify Complex 16-QAM Output *****\n");
-    printf("output[0]: %f + j(%f)\n", output[0].i, output[0].q);
-    printf("output[1]: %f + j(%f)\n", output[1].i, output[1].q);
-    printf("output[1999998]: %f + j(%f)\n", output[SYMBOL_RATE-2].i, output[SYMBOL_RATE-2].q);
-    printf("output[1999999]: %f + j(%f)\n", output[SYMBOL_RATE-1].i, output[SYMBOL_RATE-1].q);
-    printf("************************************\n\n");
+        printf("\n\n***** Verify Complex 16-QAM Output *****\n");
+        printf("output[0]: %f + j(%f)\n", output[0].i, output[0].q);
+        printf("output[1]: %f + j(%f)\n", output[1].i, output[1].q);
+        printf("output[1999998]: %f + j(%f)\n", output[SYMBOL_RATE-2].i, output[SYMBOL_RATE-2].q);
+        printf("output[1999999]: %f + j(%f)\n", output[SYMBOL_RATE-1].i, output[SYMBOL_RATE-1].q);
+        printf("************************************\n\n");
 
-    free(input);
-    free(output);
+        free(input);
+        free(output);
+    }
+    else
+    {
+        fprintf(stderr, "allocation error\n");
+        return -1;
+    }
 
     return 0;
 }
