@@ -19,6 +19,11 @@ add_compile_options(
     -Wshadow
     -Wnull-dereference
     -fstack-protector-strong
+    # -Wdouble-promotion
+    -Wundef
+    -fno-common
+    # -Wconversion
+    -fshort-enums
     -fPIE
     -fPIC
     -O2
@@ -41,6 +46,7 @@ file(GLOB SRC_FILES
 # Copy .bin file (input signal)
 # =========================
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test/data_1M.bin DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ofdm_config.conf DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # =========================
 # Main executable

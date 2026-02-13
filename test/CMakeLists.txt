@@ -14,6 +14,7 @@ foreach(test_src ${TEST_SOURCES})
         ${PROJECT_SOURCE_DIR}/src/ifft.c
         ${PROJECT_SOURCE_DIR}/src/qam.c
         ${PROJECT_SOURCE_DIR}/src/ofdm.c
+        ${PROJECT_SOURCE_DIR}/src/libcfg.c
     )
 
     target_include_directories(${test_name}

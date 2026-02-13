@@ -19,6 +19,8 @@
  */
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 #define QAM_ORDER 16
 
@@ -91,6 +93,16 @@ typedef struct
     float i;
     float q;
 } complex_t;
+
+typedef struct
+{
+    bool unit_power;
+    int  symbol_rate;
+    int  seconds;
+    int  order;
+    char *input_signal;
+
+}modulation_config;
 
 /**
  * @brief Calculates QAM symbol from bit sequence

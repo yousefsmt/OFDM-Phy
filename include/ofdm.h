@@ -18,5 +18,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+
+typedef struct
+{
+    int  number_of_subcarriers;
+    char *output_signal;
+}ofdm_config;
 
 #endif // !PHY_SOURCE_OFDM_H_
